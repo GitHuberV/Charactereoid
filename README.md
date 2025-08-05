@@ -110,6 +110,29 @@ The project uses **Manifest V3** Chrome extension architecture with a **service 
 
 ---
 
+## 🖼️ Screenshots
+
+### Screenshot 1 – Control Panel  
+![Screenshot 1](screenshots/screenshot1.png)
+
+---
+
+### Screenshot 2 – Canvas Visualizer  
+![Screenshot 2](screenshots/screenshot2.png)
+
+---
+
+## 🔥 Demo Video
+
+<p align="center">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/YtqvI2BI650"
+  title="Charactereoid Demo" frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowfullscreen></iframe>
+</p>
+
+---
+
 ## 🚀 How to Use
 
 1. **Install** the extension from the Chrome Web Store
