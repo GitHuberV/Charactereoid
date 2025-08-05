@@ -1,0 +1,74 @@
+{
+    "manifest_version": 3,
+    "name": "Charactereoid",
+    "version": "0.2.3",
+    "description": "Record canvas animations with selected tabs as background in separate popup windows, with enhanced options and theme.",
+    "action": {
+        "default_icon": {
+            "16": "assets/icons/icon16.png",
+            "48": "assets/icons/icon48.png",
+            "128": "assets/icons/icon128.png"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": [
+        "desktopCapture",
+        "storage",
+        "tabs",
+        "windows",
+        "system.display",
+        "scripting",
+        "webNavigation"
+    ],
+    "host_permissions": [
+        "https://chatgpt.com/*",
+        "https://gemini.google.com/*",
+        "https://grok.com/*",
+        "https://claude.ai/*",
+        "https://chat.deepseek.com/*",
+        "https://3000-firebase-voice-1747243935493.cluster-zkm2jrwbnbd4awuedc2alqxrpk.cloudworkstations.dev/"
+    ],
+    "commands": {
+        "_execute_action": {
+            "suggested_key": {
+                "default": "Alt+O",
+                "mac": "Alt+O"
+            },
+            "description": "Open the extension windows"
+        },
+        "stop_recording": {
+             "suggested_key": {
+                 "default": "Alt+S",
+                 "mac": "Alt+S"
+             },
+             "description": "Stop the current recording"
+        }
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "index.html",
+                "style.css",
+                "core.js",
+                "storage.js",
+                "prompt_options.js",
+                "visualizer.js",
+                "recording.js",
+                "event_listeners.js",
+                "player.html",
+                "player.js",
+                "assets/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "icons": {
+        "16": "assets/icons/icon16.png",
+        "48": "assets/icons/icon48.png",
+        "128": "assets/icons/icon128.png"
+    }
+}

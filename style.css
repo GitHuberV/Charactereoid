@@ -1,0 +1,1073 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%;
+    height: 100%;
+}
+
+/* Light Theme (Default) */
+body {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    /* Distribute items */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    /* Removed background: red; placeholder */
+    margin: 5px;
+    /* --- Added: Background image styles --- */
+    background-image: url('assets/icons/icon48.png');
+    background-size: cover;
+    /* Cover the entire div */
+    background-position: center;
+    /* Center the image */
+    /* --- End Added --- */
+}
+
+.header-title {
+    flex-grow: 1;
+    /* Allow title to take up available space */
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+body.dark-theme .header-title {
+    color: #eee;
+}
+
+
+.theme-toggle {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.theme-toggle button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+/* Theme toggle icon colors */
+body.light-theme .theme-toggle button {
+    color: #f39c12;
+    /* Sun icon color in light mode */
+}
+
+body.dark-theme .theme-toggle button {
+    color: #f1c40f;
+    /* Moon icon color in dark mode */
+}
+
+
+.main-layout {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 80px);
+    /* Adjust height considering header */
+    gap: 20px;
+    flex-wrap: wrap;
+    /* Default to landscape (row) */
+    flex-direction: row;
+}
+
+.control-panel {
+    flex: 1;
+    min-width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    height: 100%;
+    /* Take full height of parent */
+}
+
+.prevControls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Hide scrollbar but keep functionality */
+.control-panel::-webkit-scrollbar {
+    display: none;
+}
+
+/* For Firefox */
+.control-panel {
+    scrollbar-width: none;
+}
+
+/* For IE/Edge */
+.control-panel {
+    -ms-overflow-style: none;
+}
+
+
+.preview-panel {
+    flex: 4;
+    min-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+    /* Needed for absolute positioning of indicator */
+    height: 100%;
+}
+
+.section {
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.hidden-video {
+    position: absolute;
+    /* Keep hidden videos out of flow */
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.section-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* --- Modified: Control Group Layout --- */
+/* This rule styles the main control group container */
+.control-group {
+    margin-bottom: 15px;
+    display: flex;
+    /* Use flexbox */
+    flex-direction: row;
+    /* Arrange items in a row */
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line if needed */
+    align-items: center;
+    /* Vertically align items in the row */
+    gap: 10px;
+    /* Space between items */
+    width: 100%;
+    /* Ensure it takes full width to manage wrapping */
+}
+
+/* This rule styles the labels directly within control-group */
+.control-group>label {
+    display: block;
+    margin-bottom: 0;
+    font-weight: bold;
+    color: #555;
+    transition: color 0.3s ease;
+    min-width: 120px;
+    /* Increased min-width for labels */
+    flex-shrink: 0;
+    /* Prevent label from shrinking */
+    /* Added flex-basis to give labels a consistent width */
+    flex-basis: 120px;
+    /* Explicitly set basis to match min-width */
+}
+
+
+/* --- Modified: Input, Select, Textarea Widths --- */
+select,
+input[type="number"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    width: auto;
+    flex-grow: 1;
+    /* Allow inputs to grow */
+    min-width: 80px;
+    /* Adjusted min-width */
+    /* Removed max-width here to allow them to fill space better when alone */
+}
+
+/* --- Added: Specific max-width for duration and video bitrate selects/inputs --- */
+
+#durationSelection {
+    max-width: 187px;
+}
+
+#videoBitrate {
+    max-width: 190px;
+    /* Set max-width as requested */
+}
+
+/* --- End Added --- */
+
+.canvas-container {
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+    overflow: hidden;
+    /* Clip any content that overflows the container */
+}
+
+#recordCanvas {
+    display: block;
+    /* Remove extra space below the canvas */
+    box-sizing: border-box;
+    /* Include padding and border in the element's total width and height */
+}
+
+textarea {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    width: 100%;
+    flex-basis: 100%;
+    /* Ensure it takes a full row */
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+    vertical-align: middle;
+    width: auto;
+    flex-shrink: 0;
+}
+
+/* Style for the genre checkboxes to display in a grid */
+.checkbox-group.genre-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    flex-basis: 100%;
+    /* Ensure the grid takes a full row */
+}
+
+.checkbox-group label {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0;
+    font-weight: normal;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+/* --- Modified: Position Inputs Layout --- */
+/* This rule styles the container for the X and Y inputs */
+.position-inputs {
+    display: flex;
+    /* Use flexbox */
+    flex-direction: row;
+    /* Arrange X/Y pairs in a row */
+    gap: 10px;
+    /* Space between X and Y inputs */
+    align-items: center;
+    /* Vertically align X/Y labels and inputs */
+    flex-grow: 1;
+    /* Allow the container to grow */
+    flex-wrap: wrap;
+    /* Allow X/Y pairs to wrap if space is tight */
+    /* Adjusted flex-basis to allow it to sit next to the main label */
+    flex-basis: calc(100% - 130px);
+    /* Calculate basis to leave space for the main label + gap */
+}
+
+/* This rule styles the labels directly within position-inputs (X and Y labels) */
+.position-inputs label {
+    font-weight: normal;
+    min-width: auto;
+    flex-shrink: 0;
+    /* Added flex-basis to give X/Y labels a consistent small width */
+    flex-basis: 15px;
+    /* Explicitly set basis for X/Y labels */
+}
+
+/* This rule styles the number inputs directly within position-inputs (X and Y inputs) */
+.position-inputs input[type="number"] {
+    flex-grow: 1;
+    /* Allow X/Y inputs to grow */
+    min-width: 60px;
+    /* Adjusted min-width */
+    max-width: 165px;
+    /* Adjusted max-width to control size as requested */
+}
+
+/* --- End Modified: Position Inputs Layout --- */
+
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    /* Make button group take full width */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+button.recording {
+    background-color: #f44336;
+}
+
+#openRecordsModalBtn {
+    background-color: #007bff;
+    /* Blue color for records button */
+}
+
+#openRecordsModalBtn:hover {
+    background-color: #0056b3;
+}
+
+/* --- Added: Full width for Generate Prompt button --- */
+#generatePromptBtn {
+    width: 100%;
+    /* Set width to 100% as requested */
+}
+
+/* --- End Added --- */
+
+
+.status {
+    margin-top: 10px;
+    font-style: italic;
+    color: #666;
+    transition: color 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.canvas-container {
+    position: relative;
+    margin-top: 10px;
+    max-width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: #1A1A1A;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    /* Keep width responsive */
+    height: auto;
+    /* Allow height to adjust based on calculated canvas height */
+}
+
+.preview-controls-stats {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.stats-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    background: none;
+    margin-top: 0;
+    width: 220px;
+    height: 45px;
+}
+
+.stat-box {
+    background-color: #f0f0f0;
+    /* Keep background for individual boxes */
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 100px;
+    /* Ensure minimum width */
+    transition: background-color 0.3s ease;
+}
+
+.stat-value {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.preview-actions {
+    justify-content: flex-end;
+    /* Align buttons to the end */
+    margin-bottom: 0;
+    /* Remove bottom margin */
+}
+
+.preview-actions button {
+    padding: 10px;
+    /* Make icon buttons square */
+    font-size: 18px;
+    /* Adjust icon size */
+}
+
+
+.download-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.download-item {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    /* Stack info and actions on small screens */
+    align-items: flex-start;
+    /* Align items to the start */
+    gap: 10px;
+    /* Space between info and actions */
+    transition: border-color 0.3s ease;
+}
+
+@media (min-width: 600px) {
+
+    /* Revert to row layout on wider screens */
+    .download-item {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+        /* Remove gap when in row */
+    }
+}
+
+
+.download-info {
+    flex-grow: 1;
+    margin-right: 10px;
+    word-break: break-word;
+    /* Allow long titles to wrap */
+    width: 100%;
+    /* Take full width in column layout */
+}
+
+@media (min-width: 600px) {
+    .download-info {
+        width: auto;
+        /* Auto width in row layout */
+    }
+}
+
+
+.download-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+    /* Prevent actions from shrinking */
+    width: 100%;
+    /* Take full width in column layout */
+    justify-content: flex-start;
+    /* Align actions to the start in column layout */
+}
+
+@media (min-width: 600px) {
+    .download-actions {
+        width: auto;
+        /* Auto width in row layout */
+        justify-content: flex-end;
+        /* Align actions to the end in row layout */
+    }
+}
+
+
+.download-link,
+.delete-video-btn,
+.download-record-link {
+    /* Added download-record-link here */
+    /* Style both download link and delete button */
+    display: inline-block;
+    padding: 6px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+    cursor: pointer;
+    /* Ensure button has pointer cursor */
+    border: none;
+    /* Remove default button border */
+    color: white;
+    /* Default text color */
+}
+
+.download-link,
+.download-record-link {
+    /* Apply blue background to both link types */
+    background-color: #2196F3;
+    /* Blue for download */
+}
+
+.download-link:hover,
+.download-record-link:hover {
+    /* Apply hover to both link types */
+    background-color: #0b7dda;
+    color: #ffffff;
+    /* Keep text white on hover */
+}
+
+
+.delete-video-btn {
+    background-color: #f44336;
+    /* Red for delete */
+}
+
+.delete-video-btn:hover {
+    background-color: #d32f2f;
+}
+
+
+.ai-avatar-container {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    position: relative;
+}
+
+.ai-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #4CAF50;
+    object-fit: cover;
+    transition: border-color 0.3s ease;
+}
+
+.ai-mood-indicator {
+    /* Placeholder for future mood indicator */
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black with opacity */
+    backdrop-filter: blur(5px);
+    /* Blur background */
+    -webkit-backdrop-filter: blur(5px);
+    /* Safari support */
+    padding-top: 60px;
+    /* Location of the box */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    /* Could be more responsive */
+    max-width: 600px;
+    /* Max width */
+    border-radius: 8px;
+    position: relative;
+    /* Needed for close button positioning */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    /* Use flex to arrange content */
+    flex-direction: column;
+    max-height: 80vh;
+    /* Limit height to prevent overflow */
+    overflow-y: auto;
+    /* Enable scrolling within modal content */
+}
+
+/* Hide scrollbar for modal content */
+.modal-content::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-content {
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+
+.recording-indicator {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+    /* Hidden by default */
+    animation: pulse 1.5s infinite ease-in-out;
+    /* Breathing animation */
+}
+
+/* Add these rules to your existing style.css */
+
+/* Style for the modal content to make it larger */
+.modal-content {
+    margin: 10% auto;
+    /* Adjust vertical centering */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Make modal wider */
+    max-width: 800px;
+    /* Set a max width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* Style for the thumbnail images in the records list */
+.record-thumbnail-img {
+    height: 80px;
+    /* Set desired height */
+    width: auto;
+    /* Maintain aspect ratio */
+    object-fit: cover;
+    /* Crop image if needed to fit dimensions */
+    border-radius: 4px;
+    /* Optional: add rounded corners to thumbnails */
+    margin-right: 10px;
+    /* Space between thumbnail and info */
+}
+
+/* Style for the thumbnail placeholder */
+.thumbnail-placeholder {
+    height: 80px;
+    /* Match image height */
+    width: 120px;
+    /* Give it a default width */
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.8em;
+    color: #555;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+/* Basic styling for the back button */
+#backToRecordsBtn {
+    margin-right: auto;
+    /* Push other buttons to the right */
+    /* Add any other button styling you have */
+}
+
+/* Adjust button group in info modal for back button */
+#recordInfoModal .button-group {
+    display: flex;
+    justify-content: flex-end;
+    /* Align buttons to the right by default */
+    align-items: center;
+    /* Vertically align buttons */
+    gap: 10px;
+    /* Space between buttons */
+    margin-top: 20px;
+    /* Space above buttons */
+}
+
+/* Ensure record info details uses flexbox for layout */
+.record-info-details {
+    display: flex;
+    gap: 20px;
+    /* Space between thumbnail/fields */
+    flex-wrap: wrap;
+    /* Allow wrapping on smaller screens */
+}
+
+.record-info-fields {
+    flex-grow: 1;
+    /* Allow fields section to take available space */
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* Dark Theme Styles */
+body.dark-theme {
+    background-color: #1a1a1a;
+    color: #eee;
+}
+
+body.dark-theme .control-panel,
+body.dark-theme .preview-panel {
+    background-color: #2c2c2c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .section {
+    border-color: #444;
+    background-color: #3a3a3a;
+}
+
+body.dark-theme .section-title {
+    border-bottom-color: #555;
+    color: #bbb;
+}
+
+body.dark-theme label {
+    color: #bbb;
+}
+
+body.dark-theme select,
+body.dark-theme input[type="number"],
+body.dark-theme input[type="checkbox"],
+body.dark-theme textarea {
+    /* Added textarea to dark theme */
+    background-color: #4a4a4a;
+    color: #eee;
+    border-color: #666;
+}
+
+body.dark-theme .checkbox-group label {
+    color: #eee;
+}
+
+body.dark-theme .status {
+    color: #aaa;
+}
+
+body.dark-theme .canvas-container {
+    background-color: #000;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme .stats-container {
+    background: none;
+    /* Remove background from individual stats */
+}
+
+body.dark-theme .stat-box {
+    background-color: #5a5a5a;
+}
+
+body.dark-theme .stat-value {
+    color: #eee;
+}
+
+body.dark-theme .stat-label {
+    color: #ccc;
+}
+
+body.dark-theme .download-item {
+    border-bottom-color: #444;
+}
+
+body.dark-theme .ai-avatar {
+    border-color: #66bb6a;
+}
+
+body.dark-theme .modal-content {
+    background-color: #3a3a3a;
+    border-color: #555;
+    color: #eee;
+}
+
+body.dark-theme .modal-content h2 {
+    border-bottom-color: #555;
+}
+
+body.dark-theme .close-button {
+    color: #bbb;
+}
+
+body.dark-theme .close-button:hover,
+body.dark-theme .close-button:focus {
+    color: #fff;
+}
+
+body.dark-theme .download-link,
+body.dark-theme .download-record-link {
+    /* Apply darker blue to both link types */
+    background-color: #0056b3;
+    /* Darker blue for download in dark theme */
+}
+
+body.dark-theme .download-link:hover,
+body.dark-record-link:hover {
+    /* Apply hover to both link types */
+    background-color: #003f80;
+}
+
+body.dark-theme .delete-video-btn {
+    background-color: #d32f2f;
+    /* Darker red for delete in dark theme */
+}
+
+body.dark-theme .delete-video-btn:hover {
+    background-color: #b71c1c;
+}
+
+body.dark-theme #openRecordsModalBtn {
+    background-color: #0056b3;
+    /* Darker blue for records button */
+}
+
+body.dark-theme #openRecordsModalBtn:hover {
+    background-color: #003f80;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .header-title {
+        font-size: 24px;
+        margin-top: 10px;
+    }
+
+    .theme-toggle {
+        align-self: center;
+        margin-top: 10px;
+    }
+
+    .main-layout {
+        flex-direction: column;
+        height: auto;
+        /* Allow height to adjust */
+    }
+
+    .control-panel,
+    .preview-panel {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .preview-controls-stats {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stats-container {
+        justify-content: center;
+        /* Center stats when stacked */
+    }
+
+    .preview-actions {
+        justify-content: center;
+        /* Center buttons when stacked */
+        width: 100%;
+    }
+
+    /* Adjust genre grid for smaller screens */
+    .checkbox-group.genre-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        /* Fewer columns or smaller min width */
+    }
+
+    .modal-content {
+        width: 95%;
+        /* Wider modal on small screens */
+        margin: 10% auto;
+    }
+
+    /* Adjust control group layout for smaller screens */
+    .control-group {
+        flex-direction: column;
+        /* Stack items vertically on small screens */
+        align-items: flex-start;
+        /* Align items to the start */
+    }
+
+    .control-group label,
+    .position-inputs label {
+        min-width: auto;
+        /* Remove fixed width on small screens */
+    }
+
+    select,
+    input[type="number"],
+    textarea {
+        width: 100%;
+        /* Make inputs take full width on small screens */
+        flex-grow: 0;
+        /* Prevent inputs from growing excessively */
+        min-width: auto;
+        /* Remove min-width on small screens */
+    }
+
+    .position-inputs {
+        flex-direction: column;
+        /* Stack X/Y inputs vertically on small screens */
+        width: 100%;
+        /* Ensure position-inputs take full width */
+    }
+
+    .position-inputs input[type="number"] {
+        width: 100%;
+        /* Make X/Y inputs take full width */
+    }
+
+    .checkbox-group.genre-grid {
+        flex-basis: auto;
+        /* Allow genre grid to adjust basis on small screens */
+    }
+}

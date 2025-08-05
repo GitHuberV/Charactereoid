@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>High Quality Canvas Recorder</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <style>
+            /* Add CSS to hide the video elements */
+            /* #leftTabVideo,
+            #rightTabVideo {
+                display: none;
+            } */
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="logo"></div>
+                <div class="header-title">High Quality Canvas Recorder</div>
+                <div class="theme-toggle">
+                    <button id="themeToggle">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="main-layout">
+                <div class="preview-panel">
+                    <div class="canvas-container">
+                        <canvas id="recordCanvas"></canvas>
+                        <div id="recordingIndicator" class="recording-indicator"></div>
+                    </div>
+                    <div class="prevControls">
+                        <div id="status" class="status">Ready.</div>
+                        <div class="preview-controls-stats">
+                            <div class="button-group preview-actions">
+                                <button id="streamToggleBtn" title="Select Tabs">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button id="recordPauseToggleBtn" title="Start Recording" disabled>
+                                    <i class="fas fa-circle"></i>
+                                </button>
+                                <button id="stopBtn" title="Stop Recording" disabled>
+                                    <i class="fas fa-stop"></i>
+                                </button>
+                                <button id="goButton" title="Go" disabled>
+                                    Go
+                                </button>
+                            </div>
+                            <div class="stats-container">
+                                <div class="stat-box">
+                                    <div class="stat-value" id="fpsCounter">0</div>
+                                    <div class="stat-label">FPS</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-value" id="timerDisplay">00:00:00</div>
+                                    <div class="stat-label">Timer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-panel">
+                    <div class="section" id="promptOptions">
+                        <div class="section-title">Prompt Options</div>
+                        <div class="control-group">
+                            <label for="leftAiSelection">Select Left AI:</label>
+                            <select id="leftAiSelection">
+                                <option value="gemini">Left Tab: Gemini</option>
+                                <option value="chatgpt">Left Tab: ChatGPT</option>
+                                <option value="grok">Left Tab: Grok</option>
+                                <option value="claude">Left Tab: Claude</option>
+                                <option value="deepseek">Left Tab: DeepSeek</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="rightAiSelection">Select Right AI:</label>
+                            <select id="rightAiSelection">
+                                <option value="chatgpt">Right Tab: ChatGPT</option>
+                                <option value="gemini">Right Tab: Gemini</option>
+                                <option value="grok">Right Tab: Grok</option>
+                                <option value="claude">Right Tab: Claude</option>
+                                <option value="deepseek">Right Tab: DeepSeek</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="durationSelection">Duration:</label>
+                            <select id="durationSelection">
+                                <option value="short">Short (Below 1 minute)</option>
+                                <option value="medium">Medium (1-3 minutes)</option>
+                                <option value="long">Long (More than 3 minutes / Infinite)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="categorySelection">Category:</label>
+                            <select id="categorySelection">
+                                <option value="education">Education</option>
+                                <option value="tutorial">Tutorial</option>
+                                <option value="story">Story</option>
+                                <option value="podcast">Podcast</option>
+                                <option value="game">Game</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="control-group" id="genreSelection">
+                            <label>Genres:</label>
+                            <div class="checkbox-group genre-grid">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="screenLayout">Screen Layout:</label>
+                            <select id="screenLayout">
+                                <option value="landscape">Landscape</option>
+                                <option value="portrait">Portrait</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="customPromptInput">Custom Instructions:</label>
+                            <textarea id="customPromptInput" rows="4"
+                                placeholder="Add custom instructions or text here..."></textarea>
+                        </div>
+                        <div class="control-group">
+                            <button id="generatePromptBtn">Generate Prompt</button>
+                        </div>
+                        <div class="control-group">
+                            <label for="generatedPromptOutput">Generated Prompt:</label>
+                            <textarea id="generatedPromptOutput" rows="10" readonly
+                                placeholder="Generated prompt will appear here..."></textarea>
+                        </div>
+                    </div>
+                    <div class="section" id="visualizerOptions">
+                        <div class="section-title" id="configureSectionTitle">Visualizer Options</div>
+                        <div class="control-group">
+                            <label for="visualizerTabSelection">Configure:</label>
+                            <select id="visualizerTabSelection">
+                                <option value="left">Left Tab (AI)</option>
+                                <option value="right">Right Tab (ChatGPT)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="visualizerPositionSelection">Position:</label>
+                            <select id="visualizerPositionSelection">
+                                <option value="default">Default Position</option>
+                                <option value="start">Start Position</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="visualizerDiameter">Visualizer Diameter (px):</label>
+                            <input type="number" id="visualizerDiameter" value="300" min="50" max="1000">
+                        </div>
+                        <div class="control-group">
+                            <label for="avatarDiameter">Avatar Diameter (px):</label>
+                            <input type="number" id="avatarDiameter" value="290" min="40" max="990">
+                        </div>
+                        <div class="control-group">
+                            <label for="maxAmplitudePercentage">Max Amplitude (%):</label>
+                            <input type="number" id="maxAmplitudePercentage" value="40" min="10" max="100">
+                        </div>
+                        <div class="control-group">
+                            <label>Position (Pixel):</label>
+                            <div class="position-inputs">
+                                <label for="positionX">X:</label>
+                                <input type="number" id="positionX" value="0">
+                                <label for="positionY">Y:</label>
+                                <input type="number" id="positionY" value="0">
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button id="moveLeftAvatarBtn">Move Left Avatar</button>
+                            <button id="moveRightAvatarBtn">Move Right Avatar</button>
+                        </div>
+                    </div>
+                    <div class="section" id="recordingOptions">
+                        <div class="section-title">Recording Options</div>
+                        <div class="control-group">
+                            <label for="resolution">Resolution (Height):</label>
+                            <select id="resolution">
+                                <option value="480">480p</option>
+                                <option value="720">720p</option>
+                                <option value="1080" selected>1080p</option>
+                                <option value="1440">1440p</option>
+                                <option value="2160">2160p (4K)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="videoFormat">Video Format:</label>
+                            <select id="videoFormat">
+                                <option value="webm">WebM (VP9)</option>
+                                <option value="mp4">MP4 (H.264)</option>
+                                <option value="avc3" selected>MP4 (AVC3)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="videoBitrate">Video Bitrate (Mbps):</label>
+                            <input type="number" id="videoBitrate" value="15" min="1" step="1">
+                        </div>
+                        <div class="control-group">
+                            <label for="includeAudio">Include Audio:</label>
+                            <input type="checkbox" id="includeAudio">
+                        </div>
+                        <div class="control-group">
+                            <label for="audioBitrate">Audio Bitrate (kbps):</label>
+                            <select id="audioBitrate">
+                                <option value="48">48 kbps</option>
+                                <option value="128" selected>128 kbps</option>
+                                <option value="192">192 kbps</option>
+                                <option value="256">256 kbps</option>
+                                <option value="320">320 kbps</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="fps">Frame Rate:</label>
+                            <select id="fps">
+                                <option value="24">24 FPS</option>
+                                <option value="30">30 FPS</option>
+                                <option value="60" selected>60 FPS</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="backgroundBlurAmount">Background Blur (px):</label>
+                            <input type="number" id="backgroundBlurAmount" value="10" min="0" max="50" step="1">
+                        </div>
+                    </div>
+                    <div class="section">
+                        <button id="openRecordsModalBtn">Records</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <video id="leftTabVideo" autoplay muted playsinline></video>
+        <video id="rightTabVideo" autoplay muted playsinline></video>
+        <div id="miniPlayerModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeMiniPlayer">&times;</span>
+                <video id="miniPlayerVideo" controls></video>
+            </div>
+        </div>
+        <div id="recordsModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeRecordsModal">&times;</span>
+                <h2>Saved Records</h2>
+                <p id="storageStatus" class="status"></p>
+                <ul id="recordsList" class="download-list">
+                </ul>
+            </div>
+        </div>
+        <div id="recordInfoModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" id="closeRecordInfoModal">&times;</span>
+                <h2>Record Details</h2>
+                <div class="record-info-details">
+                    <div class="record-info-thumbnail" id="recordInfoThumbnail">
+                    </div>
+                    <div class="record-info-fields">
+                        <div class="control-group">
+                            <label for="recordInfoTitle">Title:</label>
+                            <input type="text" id="recordInfoTitle">
+                        </div>
+                        <div class="control-group">
+                            <label>Date:</label>
+                            <span id="recordInfoDate"></span>
+                        </div>
+                        <div class="control-group">
+                            <label for="recordInfoDescription">Description:</label>
+                            <textarea id="recordInfoDescription" rows="4"></textarea>
+                        </div>
+                        <div class="control-group">
+                            <label for="recordInfoShortDescription">Short Description:</label>
+                            <textarea id="recordInfoShortDescription" rows="2"></textarea>
+                        </div>
+                        <div class="control-group">
+                            <label for="recordInfoSeoTags">SEO Tags:</label>
+                            <textarea id="recordInfoSeoTags" rows="2"></textarea>
+                        </div>
+                        <div class="control-group">
+                            <label for="recordInfoScenario">Scenario:</label>
+                            <textarea id="recordInfoScenario" rows="4" readonly></textarea>
+                        </div>
+                        <div class="control-group">
+                            <label for="recordInfoInstructions">Instructions:</label>
+                            <textarea id="recordInfoInstructions" rows="6" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button id="backToRecordsBtn"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button id="saveRecordInfoBtn"><i class="fas fa-save"></i> Save Info</button>
+                    <button id="deleteRecordInfoBtn" class="delete-button"><i class="fas fa-trash-alt"></i>Delete Record</button>
+                </div>
+            </div>
+        </div>
+        <script src="storage.js"></script>
+        <script src="layout_manager.js"></script>
+        <script src="visualizer.js"></script>
+        <script src="prompt_options.js"></script>
+        <script src="record_manager.js"></script>
+        <script src="recording.js"></script>
+        <script src="event_listeners.js"></script>
+        <script src="core.js"></script>
+    </body>
+</html>
