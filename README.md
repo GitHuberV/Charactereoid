@@ -124,12 +124,7 @@ The project uses **Manifest V3** Chrome extension architecture with a **service 
 
 ## 🔥 Demo Video
 
-<p align="center">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/YtqvI2BI650"
-  title="Charactereoid Demo" frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen></iframe>
-</p>
+[![Watch the Demo](https://img.youtube.com/vi/YtqvI2Bl650/0.jpg)](https://www.youtube.com/watch?v=YtqvI2Bl650)
 
 ---
 
