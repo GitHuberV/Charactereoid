@@ -16,7 +16,7 @@ let generatedPromptFullResponse = ''; // Store the full response text
 let isDualPromptingActive = false; // Track the state of the Go/Stop button
 // AUTH_KEY is assumed to be defined elsewhere, e.g., in a config file or background script
 // For now, keeping it here as it was in the user's provided code snippet.
-const AUTH_KEY = "P5CtsAw3jZxgYDn53B1Uw44JpKljCYQF"; // Assuming this is the correct key
+const AUTH_KEY = "asdasdreweadbasdughvcgsad"; // your speechify api key
 
 
 // Note: The initial loading of options and records, and adding modal listeners,
