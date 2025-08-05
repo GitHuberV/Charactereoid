@@ -113,12 +113,12 @@ The project uses **Manifest V3** Chrome extension architecture with a **service 
 ## 🖼️ Screenshots
 
 ### Screenshot 1 – Control Panel  
-![Screenshot 1](screenshots/screenshot_1.png)
+![Screenshot 1](Screenshots/Screenshot_1.png)
 
 ---
 
 ### Screenshot 2 – Canvas Visualizer  
-![Screenshot 2](screenshots/screenshot_2.png)
+![Screenshot 2](Screenshots/Screenshot_2.png)
 
 ---
 
